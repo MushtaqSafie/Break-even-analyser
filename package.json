@@ -1,0 +1,25 @@
+{
+  "name": "break-even-analyser",
+  "version": "1.0.0",
+  "description": "Project 3 Break-even point analyser",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MushtaqSafie/Break-even-analyser.git"
+  },
+  "author": "Mushtaq Safie",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MushtaqSafie/Break-even-analyser/issues"
+  },
+  "homepage": "https://github.com/MushtaqSafie/Break-even-analyser#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "if-env": "^1.0.4",
+    "mysql2": "^2.2.5",
+    "sequelize": "^6.6.2"
+  }
+}
