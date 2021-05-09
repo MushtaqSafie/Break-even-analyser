@@ -28,6 +28,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
+// this compoenet is create for the purpose of copyright, but it can also be used for any other content that goes in same spot e.g 'create by'
 const Copyright = () => {
   const classes = useStyles(); 
   return (

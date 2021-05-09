@@ -1,13 +1,8 @@
 import React from 'react';
 import { Button, CssBaseline, TextField, FormControlLabel, Checkbox, Link, Grid, Box, Typography, Container } from '@material-ui/core';
-
 import { makeStyles } from '@material-ui/core/styles';
-
-
 import logo from "../logo.png";
 import Copyright from "../components/Copyright"
-
-
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -15,9 +10,9 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    backgroundColor: "#f3f3f3",
+    backgroundColor: "#fafafa",
     padding: 20,
-    borderRadius: 20,
+    borderRadius: 10,
     boxShadow: '0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)'
   },
   form: {
@@ -30,7 +25,11 @@ const useStyles = makeStyles((theme) => ({
   media: {
     height: 110,
   },
-
+  copyright: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+  }
 }));
 
 const SignIn = () => {
@@ -42,7 +41,7 @@ const SignIn = () => {
       <div className={classes.root}>
         <img src={logo} className={classes.media} alt="logo" />
         <Typography variant="subtitle1">
-          Please enter your user information
+          Please enter your information
         </Typography>
         <form className={classes.form} noValidate>
           <TextField
@@ -93,10 +92,11 @@ const SignIn = () => {
             </Grid>
           </Grid>
         </form>
-        <Box  mt={9}>
-          <Copyright />
-        </Box>
+ 
       </div>
+      <Box className={classes.copyright} mt={9}>
+        <Copyright />
+      </Box>
     </Container>
   );
 };
