@@ -3,7 +3,7 @@ import { Button, CssBaseline, TextField, FormControlLabel, Checkbox, Link, Grid,
 
 import { makeStyles } from '@material-ui/core/styles';
 import logo from "../logo.png";
-import Copyright from "../components/Copyright"
+import GithubLink from "../components/GithubLink"
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
   media: {
     height: 110,
   },
-  copyright: {
+  GithubLink: {
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
@@ -117,8 +117,8 @@ const SignUp = () => {
           </Grid>
         </form>
       </div>
-      <Box className={classes.copyright} mt={5}>
-        <Copyright />
+      <Box className={classes.GithubLink} mt={5}>
+        <GithubLink />
       </Box>
     </Container>
   );

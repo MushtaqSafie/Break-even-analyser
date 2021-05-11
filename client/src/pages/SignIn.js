@@ -2,7 +2,7 @@ import React from 'react';
 import { Button, CssBaseline, TextField, FormControlLabel, Checkbox, Link, Grid, Box, Typography, Container } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import logo from "../logo.png";
-import Copyright from "../components/Copyright"
+import GithubLink from "../components/GithubLink"
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
   media: {
     height: 110,
   },
-  copyright: {
+  GithubLink: {
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
@@ -94,8 +94,8 @@ const SignIn = () => {
         </form>
  
       </div>
-      <Box className={classes.copyright} mt={9}>
-        <Copyright />
+      <Box className={classes.GithubLink} mt={9}>
+        <GithubLink />
       </Box>
     </Container>
   );

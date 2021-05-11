@@ -1,14 +1,16 @@
 import React, { useState } from "react";
 import clsx from 'clsx';
-import { Drawer, AppBar, Toolbar, List, Typography, Divider, IconButton, Badge, makeStyles } from '@material-ui/core';
-
+import { Drawer, AppBar, Toolbar, List, Typography, Divider, IconButton, Badge, ListItem, ListItemIcon, ListItemText, makeStyles } from '@material-ui/core';
 // Icons
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import MenuIcon from '@material-ui/icons/Menu';
+import DashboardIcon from '@material-ui/icons/Dashboard';
+import MoneyOffIcon from '@material-ui/icons/MoneyOff';
+// import PeopleIcon from '@material-ui/icons/People';
+import PollIcon from '@material-ui/icons/Poll';
 
-// import { mainListItems, secondaryListItems } from './listItems';
-const drawerWidth = 240;
+const drawerWidth = 280;
 
 const useStyles = makeStyles((theme) => ({
   toolbar: {
@@ -113,9 +115,34 @@ const NavBar = () => {
         </IconButton>
       </div>
       <Divider />
-      {/* <List>{mainListItems}</List> */}
+        <List>
+          <ListItem button component="a" href="/ProductInformation">
+            <ListItemIcon>
+              <DashboardIcon />
+            </ListItemIcon>
+            <ListItemText primary="Product Information" />
+          </ListItem>
+          <ListItem button>
+            <ListItemIcon>
+              <MoneyOffIcon />
+            </ListItemIcon>
+            <ListItemText primary="Fixed Costs" />
+          </ListItem>
+          <ListItem button>
+            <ListItemIcon>
+              <MoneyOffIcon />
+            </ListItemIcon>
+            <ListItemText primary="Bills of Material & DL" />
+          </ListItem>
+          <ListItem button>
+            <ListItemIcon>
+              <PollIcon />
+            </ListItemIcon>
+            <ListItemText primary="Profit Volume Forecast" />
+          </ListItem>
+        </List>
       <Divider />
-      {/* <List>{secondaryListItems}</List> */}
+
     </Drawer>
     </>
   )
