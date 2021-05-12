@@ -1,5 +1,6 @@
 const express = require("express");
 const path = require("path");
+const bodyParser = require('body-parser')
 // const mysql2 = require("mysql2");
 // Requiring our models for syncing
 const db = require("./models");
@@ -9,8 +10,8 @@ const app = express();
 const PORT = process.env.PORT || 3001;
 
 // Define middleware here
-app.use(express.urlencoded({ extended: true }));
-app.use(express.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 
 if (process.env.NODE_ENV === "development") {
   app.use(express.static("client/build"));
