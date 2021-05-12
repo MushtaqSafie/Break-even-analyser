@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const registerRoutes = require("./register");
+const userRoutes = require("./user");
 
 // router.get("/", (req, res) => {
 //   const obj = {
@@ -8,6 +8,6 @@ const registerRoutes = require("./register");
 //   res.json(JSON.stringify(obj))
 // })
 
-router.use("/register", registerRoutes);
+router.use("/user", userRoutes);
 
 module.exports = router;
