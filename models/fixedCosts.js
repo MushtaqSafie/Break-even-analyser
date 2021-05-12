@@ -1,5 +1,5 @@
 module.exports = (sequelize, DataTypes) => {
-  const FixedCosts = sequelize.define("fixedCosts", {
+  const FixedCosts = sequelize.define("FixedCosts", {
     fixed_cost_item: {
       type: DataTypes.STRING
     },
