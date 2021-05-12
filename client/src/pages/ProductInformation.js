@@ -1,6 +1,5 @@
 import React from 'react';
-import clsx from 'clsx';
-import { CssBaseline, Box, Container, Grid, Paper, makeStyles } from '@material-ui/core';
+import { CssBaseline, Box, Container, Grid, makeStyles } from '@material-ui/core';
 
 import GithubLink from "../components/GithubLink"
 import NavBar from "../components/NavBar"

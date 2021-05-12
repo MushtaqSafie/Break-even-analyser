@@ -67,6 +67,9 @@ const useStyles = makeStyles((theme) => ({
       width: theme.spacing(9),
     },
   },
+  signin: {
+    textDecoration: "none",
+  },
 }));
 
 const NavBar = () => {
@@ -101,6 +104,11 @@ const NavBar = () => {
             <NotificationsIcon />
           </Badge>
         </IconButton>
+        <IconButton color="inherit">
+          <Typography component="a" variant="h6" href="/signin" className={classes.signin} >
+            Sign In
+          </Typography>
+        </IconButton>     
       </Toolbar>
     </AppBar>
 

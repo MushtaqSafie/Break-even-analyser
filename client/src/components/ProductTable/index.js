@@ -125,8 +125,6 @@ const rows = [
   createData('Gingerbread', 356, 16.0, 49, 3.9, 1.5),
 ];
 
-console.log(createData('Frozen yoghurt', 159, 6.0, 24, 4.0, 3.99));
-
 export default function CollapsibleTable() {
   return (
     <TableContainer component={Paper}>

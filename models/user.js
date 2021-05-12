@@ -15,17 +15,7 @@ module.exports = (sequelize, DataTypes) => {
     user_password: {
       type: DataTypes.STRING,
       allowNull: false
-    },
-    business_name: {
-      type: DataTypes.STRING,
-      allowNull: true,
-      defaultValue: null
-    },
-    phone_number: {
-      type: DataTypes.STRING,
-      allowNull: true,
-      defaultValue: null
-    },
+    }
   });
 
   return User;

@@ -1,5 +1,5 @@
 import React from "react";
-import { Avatar, Link, Typography, makeStyles } from '@material-ui/core';
+import { Avatar, Link, makeStyles } from '@material-ui/core';
 import { pink } from '@material-ui/core/colors';
 import GitHubIcon from '@material-ui/icons/GitHub';
 
@@ -31,13 +31,13 @@ const useStyles = makeStyles((theme) => ({
 const GithubLink = () => {
   const classes = useStyles(); 
   return (
-    <Typography className={classes.root} variant="body2" color="textSecondary" align="center">
+    <div className={classes.root} align="center">
       {'Created By'}
       <Link className={classes.link}  color="inherit" href="https://github.com/mushtaqsafie" target="_blank">
         <Avatar className={classes.avatar}><GitHubIcon/></Avatar>
         Mushtaq Safie 
       </Link>
-    </Typography>
+    </div>
   );
 }
 

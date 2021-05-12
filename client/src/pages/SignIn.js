@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { Button, CssBaseline, TextField, FormControlLabel, Checkbox, Link, Grid, Box, Typography, Container } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import logo from "../logo.png";
@@ -35,6 +35,17 @@ const useStyles = makeStyles((theme) => ({
 const SignIn = () => {
   const classes = useStyles();
 
+  const emailRef = useRef();
+  const passwordRef = useRef();
+
+  const handleSignInBtn = (e) => {
+    e.preventDefault();
+    console.log(emailRef.current.value);
+    console.log(passwordRef.current.value);
+  }
+
+
+
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
@@ -54,6 +65,7 @@ const SignIn = () => {
             name="email"
             autoComplete="email"
             autoFocus
+            inputRef={emailRef}
           />
           <TextField
             variant="outlined"
@@ -65,6 +77,7 @@ const SignIn = () => {
             type="password"
             id="password"
             autoComplete="current-password"
+            inputRef={passwordRef}
           />
           <FormControlLabel
             control={<Checkbox value="remember" color="primary" />}
@@ -76,6 +89,7 @@ const SignIn = () => {
             variant="contained"
             color="primary"
             className={classes.submit}
+            onClick={handleSignInBtn}
           >
             Sign In
           </Button>
