@@ -1,6 +1,7 @@
 const express = require("express");
 const path = require("path");
-const bodyParser = require('body-parser')
+const bodyParser = require('body-parser');
+require("./auth/passport")
 // const mysql2 = require("mysql2");
 // Requiring our models for syncing
 const db = require("./models");
