@@ -9,6 +9,8 @@ import GithubLink from "../components/GithubLink"
 import { Redirect } from 'react-router'
 
 import API from "../utils/API";
+import { useStoreContext } from "../utils/GlobalState";
+import { USER_REGISTER } from "../utils/actions";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -40,19 +42,20 @@ const useStyles = makeStyles((theme) => ({
 
 const SignUp = () => {
   const classes = useStyles();
-  const [error, setError] = useState("");
-  const [redirect, setRedirect] = useState(false);
-
-  const renderRedirect = () => {
-    if (redirect) {
-      return <Redirect to="/target" />
-    }
-  }
-
   const firstNameRef = useRef();
   const lastNameRef = useRef();
   const emailRef = useRef();
   const passwordRef = useRef();
+  
+  const [state, dispatch] = useStoreContext();
+  const [error, setError] = useState("");
+  const [redirect, setRedirect] = useState(false);
+
+  const renderRedirect = () => {
+    if (redirect && state.isAuthenticated) {
+      return <Redirect to="/" />
+    }
+  }
 
   const handleSignUpBtn = (e) => {
     e.preventDefault();
@@ -69,12 +72,19 @@ const SignUp = () => {
     };
 
     if (firstName && lastName && emailAddress && password) {
-      API.registerUser(userData).then(res => {
+      API.registerUser(userData)
+      .then(res => {
         res.data.status||setError(res.data.message);
-        setRedirect(true);
-      })
-    } 
-
+        if (res.data.status) {
+          dispatch({
+            type: USER_REGISTER,
+            user: userData
+          })
+          setRedirect(true);
+        };
+      });
+    }
+    // handle submit form
   }
 
   return (

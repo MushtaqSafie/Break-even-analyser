@@ -1,7 +1,7 @@
 import React, { createContext, useReducer, useContext } from "react";
 import { USER_LOGIN, USER_LOGOUT, USER_REGISTER } from "./actions";
 
-const StoreContext = createContext;
+const StoreContext = createContext();
 const { Provider } = StoreContext;
 
 const reducer = (state, action) => {
@@ -45,14 +45,15 @@ const StoreProvider = ({ value = [], ...props }) => {
       first_name: "",
       last_name: "",
       email_address: ""
-    }
+    },
   });
 
   return <Provider value={[state, dispatch]} {...props} />;
-}
+};
 
 const useStoreContext = () => {
   return useContext(StoreContext);
 };
 
 export { StoreProvider, useStoreContext };
+
