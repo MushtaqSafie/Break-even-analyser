@@ -7,8 +7,8 @@ module.exports = {
     db.User.findOne({ where: { email_address }})
       .then(result => {
         if (result) {
-          // user already exist in database
-          res.status(422).json({ error: "User already exist!"})
+          // user already exist in database;
+          res.status(200).json({ status: false, message: "User already exist! — Please Sign in "})
         } else {
           // for new user create a new accounts
           db.User.create({ 
@@ -17,7 +17,7 @@ module.exports = {
             email_address, 
             user_password 
           })
-          .then(dbModel => res.json(dbModel))
+          .then(dbModel => res.json( { status: true, email: dbModel.dataValues.email_address }))
           .catch(err => res.status(422).json(err));
         }
       })

@@ -1,9 +1,13 @@
-import React from 'react';
+import React, { useRef, useState } from 'react';
 import { Button, CssBaseline, TextField, FormControlLabel, Checkbox, Link, Grid, Box, Typography, Container } from '@material-ui/core';
+
+import { Alert, AlertTitle } from '@material-ui/lab';
 
 import { makeStyles } from '@material-ui/core/styles';
 import logo from "../logo.png";
 import GithubLink from "../components/GithubLink"
+
+import API from "../utils/API";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -35,6 +39,34 @@ const useStyles = makeStyles((theme) => ({
 
 const SignUp = () => {
   const classes = useStyles();
+  const [error, setError] = useState("");
+
+  const firstNameRef = useRef();
+  const lastNameRef = useRef();
+  const emailRef = useRef();
+  const passwordRef = useRef();
+
+  const handleSignUpBtn = (e) => {
+    e.preventDefault();
+    const firstName = firstNameRef.current.value;
+    const lastName = lastNameRef.current.value;
+    const emailAddress = emailRef.current.value;
+    const password = passwordRef.current.value;
+
+    const userData = {
+      first_name: firstName,
+      last_name: lastName,
+      email_address: emailAddress,
+      user_password: password
+    };
+
+    if (firstName && lastName && emailAddress && password) {
+      API.registerUser(userData).then(res => {
+        res.data.status||setError(res.data.message);
+      })
+    } 
+
+  }
 
   return (
     <Container component="main" maxWidth="xs">
@@ -44,7 +76,7 @@ const SignUp = () => {
         <Typography variant="subtitle1">
           Please enter your information
         </Typography>
-        <form className={classes.form} noValidate>
+        <form className={classes.form} onSubmit={handleSignUpBtn}>
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6}>
               <TextField
@@ -56,6 +88,7 @@ const SignUp = () => {
                 id="firstName"
                 label="First Name"
                 autoFocus
+                inputRef={firstNameRef}
               />
             </Grid>
             <Grid item xs={12} sm={6}>
@@ -67,6 +100,7 @@ const SignUp = () => {
                 label="Last Name"
                 name="lastName"
                 autoComplete="lname"
+                inputRef={lastNameRef}
               />
             </Grid>
             <Grid item xs={12}>
@@ -78,6 +112,7 @@ const SignUp = () => {
                 label="Email Address"
                 name="email"
                 autoComplete="email"
+                inputRef={emailRef}
               />
             </Grid>
             <Grid item xs={12}>
@@ -90,6 +125,7 @@ const SignUp = () => {
                 type="password"
                 id="password"
                 autoComplete="current-password"
+                inputRef={passwordRef}
               />
             </Grid>
             <Grid item xs={12}>
@@ -108,6 +144,16 @@ const SignUp = () => {
           >
             Sign Up
           </Button>
+
+          { error && (
+          <Grid item xs={12}>
+            <Alert severity="error">
+              <AlertTitle>Error</AlertTitle>
+              {error}
+            </Alert>
+          </Grid>
+          )}
+
           <Grid container justify="flex-end">
             <Grid item>
               <Link href="/signin" variant="body2">
