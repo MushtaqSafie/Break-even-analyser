@@ -6,6 +6,7 @@ import { Alert, AlertTitle } from '@material-ui/lab';
 import { makeStyles } from '@material-ui/core/styles';
 import logo from "../logo.png";
 import GithubLink from "../components/GithubLink"
+import { Redirect } from 'react-router'
 
 import API from "../utils/API";
 
@@ -40,6 +41,13 @@ const useStyles = makeStyles((theme) => ({
 const SignUp = () => {
   const classes = useStyles();
   const [error, setError] = useState("");
+  const [redirect, setRedirect] = useState(false);
+
+  const renderRedirect = () => {
+    if (redirect) {
+      return <Redirect to="/target" />
+    }
+  }
 
   const firstNameRef = useRef();
   const lastNameRef = useRef();
@@ -63,6 +71,7 @@ const SignUp = () => {
     if (firstName && lastName && emailAddress && password) {
       API.registerUser(userData).then(res => {
         res.data.status||setError(res.data.message);
+        setRedirect(true);
       })
     } 
 
@@ -70,6 +79,7 @@ const SignUp = () => {
 
   return (
     <Container component="main" maxWidth="xs">
+      {renderRedirect()}
       <CssBaseline />
       <div className={classes.root}>
         <img src={logo} className={classes.media} alt="logo" />
