@@ -7,7 +7,8 @@ const AuthRoute = ({ component: Component, ...rest }) => {
   const [state, dispatch] = useStoreContext();
   return (
     <Route {...rest} render={(props) => (
-      state.isAuthenticated
+      // state.isAuthenticated
+      true
         ? <Component {...props} />
         : <Redirect to='/signin' />
     )} />

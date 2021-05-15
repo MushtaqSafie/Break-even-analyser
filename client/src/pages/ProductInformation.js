@@ -5,6 +5,7 @@ import GithubLink from "../components/GithubLink"
 import NavBar from "../components/NavBar"
 
 import ProductTable from '../components/ProductTable';
+import TypographyTitle from "../components/TypographyTitle";
 // import Deposits from './Deposits';
 // import Orders from './Orders';
 
@@ -40,6 +41,9 @@ const ProductInformation = () => {
         <Container maxWidth="lg" className={classes.container}>
           <Grid container spacing={3}>
             <Grid item xs={12}>
+              <TypographyTitle 
+                title={"Product Information"} 
+              />
               <ProductTable />
             </Grid>
           </Grid>
