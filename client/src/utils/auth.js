@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { Redirect } from 'react-router'
 import { useStoreContext } from "./GlobalState";
