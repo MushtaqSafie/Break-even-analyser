@@ -42,7 +42,7 @@ const ProductInformation = () => {
           <Grid container spacing={3}>
             <Grid item xs={12}>
               <TypographyTitle 
-                title={"Product Information"} 
+                title={"Fixed Costs"} 
               />
               <TableBody headCells={headCells} rows={rows} />
             </Grid>

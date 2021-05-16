@@ -130,19 +130,19 @@ const NavBar = () => {
             </ListItemIcon>
             <ListItemText primary="Product Information" />
           </ListItem>
-          <ListItem button>
+          <ListItem button component="a" href="/fixedCosts">
             <ListItemIcon>
               <MoneyOffIcon />
             </ListItemIcon>
             <ListItemText primary="Fixed Costs" />
           </ListItem>
-          <ListItem button>
+          <ListItem button component="a" href="/materialCosts">
             <ListItemIcon>
               <MoneyOffIcon />
             </ListItemIcon>
             <ListItemText primary="Bills of Material & DL" />
           </ListItem>
-          <ListItem button>
+          <ListItem button component="a" href="/CVPanalysis">
             <ListItemIcon>
               <PollIcon />
             </ListItemIcon>
