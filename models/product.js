@@ -10,7 +10,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.DECIMAL(10, 2)
     },
     SKU: {
-      type: DataTypes.DECIMAL(10, 2)
+      type: DataTypes.STRING
     },
     product_image: {
       type: DataTypes.BLOB("long")

@@ -10,8 +10,46 @@ const users = [
   },
 ];
 
+const products = [
+  {
+    product_description: "Kettle",
+    unit: "Each",
+    unit_sales_price: 39.89,
+    SKU: "KE_001",
+    product_url: "/url"
+  }
+]
+
+const fixedCosts = [
+  {
+    fixed_cost_item: "Salary",
+    date: new Date(),
+    description: "Marketing Team",
+    Amount: 10000
+  }
+]
+
+const materialsCosts = [
+  {
+    product_SKU: "KE_001",
+    material_description: "Iron",
+    quantity: 1,
+    cost_price: 3
+  }
+]
+
 users.forEach(currentItem => {
   db.User.create(currentItem).then(result => console.log(result));
 });
 
+products.forEach(currentItem => {
+  db.Products.create(currentItem).then(result => console.log(result));
+});
 
+fixedCosts.forEach(currentItem => {
+  db.FixedCosts.create(currentItem).then(result => console.log(result));
+});
+
+materialsCosts.forEach(currentItem => {
+  db.MaterialsCosts.create(currentItem).then(result => console.log(result));
+});
