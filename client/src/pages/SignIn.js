@@ -40,8 +40,8 @@ const SignIn = () => {
 
   const handleSignInBtn = (e) => {
     e.preventDefault();
-    console.log(emailRef.current.value);
-    console.log(passwordRef.current.value);
+    // console.log(emailRef.current.value);
+    // console.log(passwordRef.current.value);
   }
 
 

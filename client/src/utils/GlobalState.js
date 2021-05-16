@@ -1,5 +1,5 @@
 import React, { createContext, useReducer, useContext } from "react";
-import { USER_LOGIN, USER_LOGOUT, USER_REGISTER } from "./actions";
+import { USER_LOGIN, USER_LOGOUT, USER_REGISTER, GET_PRODUCTS, UPDATE_PRODUCTS } from "./actions";
 
 const StoreContext = createContext();
 const { Provider } = StoreContext;
@@ -31,6 +31,12 @@ const reducer = (state, action) => {
         isAuthenticated: true,
         user: action.user
       }
+
+    case GET_PRODUCTS:
+      return {
+        ...state,
+        productsInfo: action.products
+      }
   
     default:
       return state;
@@ -46,6 +52,7 @@ const StoreProvider = ({ value = [], ...props }) => {
       last_name: "",
       email_address: ""
     },
+    productsInfo: []
   });
 
   return <Provider value={[state, dispatch]} {...props} />;

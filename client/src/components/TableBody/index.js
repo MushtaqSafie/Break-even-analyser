@@ -44,7 +44,7 @@ export default function EnhancedTable(props) {
   const { headCells, rows } = props
   const classes = useStyles();
   const [order, setOrder] = React.useState('asc');
-  const [orderBy, setOrderBy] = React.useState('calories');
+  const [orderBy, setOrderBy] = React.useState('name');
   const [selected, setSelected] = React.useState([]);
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
@@ -53,6 +53,7 @@ export default function EnhancedTable(props) {
     const isAsc = orderBy === property && order === 'asc';
     setOrder(isAsc ? 'desc' : 'asc');
     setOrderBy(property);
+    console.log(rows)
   };
 
   const handleSelectAllClick = (event) => {
@@ -122,7 +123,7 @@ export default function EnhancedTable(props) {
                 .map((row, index) => {
                   const tableCells = [];
                   for(const index in row) {
-                    if (index !== "name") {
+                    if (index !== "name" && index !== "id") {
                       tableCells.push(row[index])
                     }
                   }
@@ -150,7 +151,7 @@ export default function EnhancedTable(props) {
                       </TableCell>
 
                       {tableCells.map((cell, index) => (
-                        <TableCell key={index} align="right">{cell}</TableCell>
+                        <TableCell align="right">{cell}</TableCell>
                       ))}
       
                     </TableRow>
