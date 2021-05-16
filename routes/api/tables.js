@@ -5,6 +5,7 @@ const materialsCostsController = require("../../controllers/materialsCostsContro
 
 // following routes are appended "/api/table/"
 
+// Product Information Table
 router.route("/productInfo")
   .get(productController.findAll)
   .post(productController.createOne)
@@ -13,6 +14,7 @@ router.route("/productInfo/:id")
   .delete(productController.removeOne)
   .put(productController.updateOne)
 
+// Fixed Costs Table
 router.route("/fixedCosts")
   .get(fixedCostsController.findAll)
   .post(fixedCostsController.createOne)
@@ -21,6 +23,7 @@ router.route("/fixedCosts/:id")
   .delete(fixedCostsController.removeOne)
   .put(fixedCostsController.updateOne)
 
+// Materials Costs Table
 router.route("/materialsCosts")
   .get(materialsCostsController.findAll)
   .post(materialsCostsController.createOne)
