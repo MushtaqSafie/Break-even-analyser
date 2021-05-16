@@ -4,7 +4,7 @@ import { CssBaseline, Box, Container, Grid, makeStyles } from '@material-ui/core
 import GithubLink from "../components/GithubLink"
 import NavBar from "../components/NavBar"
 
-import ProductTable from '../components/ProductTable';
+import TableBody from '../components/TableBody';
 import TypographyTitle from "../components/TypographyTitle";
 // import Deposits from './Deposits';
 // import Orders from './Orders';
@@ -44,7 +44,7 @@ const ProductInformation = () => {
               <TypographyTitle 
                 title={"Product Information"} 
               />
-              <ProductTable />
+              <TableBody />
             </Grid>
           </Grid>
           <Box pt={4}>
