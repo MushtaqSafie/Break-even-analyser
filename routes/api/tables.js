@@ -1,9 +1,14 @@
 const router = require('express').Router();
-const userController = require("../../controllers/userController");
+const productController = require("../../controllers/productController");
 
 // route "/api/table/productInfo"
 router.route("/productInfo")
-  .post(userController.create)
+  .get(productController.findAll)
+  .post(productController.createOne)
+
+router.route("/productInfo/:id")
+  .delete(productController.removeOne)
+  .put(productController.updateOne)
 
 // route "/api/table/fixedCosts"
 // router.route("/fixedCosts")
