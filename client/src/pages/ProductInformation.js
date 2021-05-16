@@ -8,6 +8,7 @@ import TableBody from '../components/TableBody';
 import TypographyTitle from "../components/TypographyTitle";
 // import Deposits from './Deposits';
 // import Orders from './Orders';
+import { headCells, rows } from "../tables/ProductInfo"
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -44,7 +45,7 @@ const ProductInformation = () => {
               <TypographyTitle 
                 title={"Product Information"} 
               />
-              <TableBody />
+              <TableBody headCells={headCells} rows={rows} />
             </Grid>
           </Grid>
           <Box pt={4}>

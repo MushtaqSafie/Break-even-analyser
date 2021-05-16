@@ -11,7 +11,6 @@ import {
   Checkbox
 } from '@material-ui/core';
 
-import { headCells, rows } from "../../tables/ProductInfo"
 import { getComparator, stableSort } from "../../tables/tableSort"
 
 import TableToolbar from "../TableToolbar";
@@ -41,7 +40,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function EnhancedTable() {
+export default function EnhancedTable(props) {
+  const { headCells, rows } = props
   const classes = useStyles();
   const [order, setOrder] = React.useState('asc');
   const [orderBy, setOrderBy] = React.useState('calories');
