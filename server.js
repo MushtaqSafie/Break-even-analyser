@@ -28,7 +28,7 @@ app.get("*", (req, res) => {
 
 // Syncing our sequelize models and then starting our Express app
 // !! REMOVE "{ force: true }" @ deployment !!
-db.sequelize.sync().then(() => {
+db.sequelize.sync({ force: true }).then(() => {
   // Start the API server
   app.listen(PORT, function() {
     console.log(`🌎  ==> API Server now listening on PORT ${PORT}!`);

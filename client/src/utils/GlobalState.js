@@ -1,5 +1,5 @@
 import React, { createContext, useReducer, useContext } from "react";
-import { USER_LOGIN, USER_LOGOUT, USER_REGISTER, GET_PRODUCTS, UPDATE_PRODUCTS } from "./actions";
+import { USER_LOGIN, USER_LOGOUT, USER_REGISTER, GET_PRODUCTS, ADD_PRODUCTS } from "./actions";
 
 const StoreContext = createContext();
 const { Provider } = StoreContext;
@@ -36,6 +36,12 @@ const reducer = (state, action) => {
       return {
         ...state,
         productsInfo: action.products
+      }
+
+    case ADD_PRODUCTS:
+      return {
+        ...state,
+        productsInfo: [action.product, ...state.productsInfo]
       }
   
     default:

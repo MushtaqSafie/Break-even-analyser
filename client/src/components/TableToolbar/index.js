@@ -7,11 +7,12 @@ import {
   Toolbar,
   Typography,
   IconButton,
-  Tooltip 
+  Tooltip ,
+  Button
 } from '@material-ui/core';
 
 import DeleteIcon from '@material-ui/icons/Delete';
-import FilterListIcon from '@material-ui/icons/FilterList';
+import AddCircleIcon from '@material-ui/icons/AddCircle';
 
 const useToolbarStyles = makeStyles((theme) => ({
   root: {
@@ -35,7 +36,7 @@ const useToolbarStyles = makeStyles((theme) => ({
 
 const TableToolbar = (props) => {
   const classes = useToolbarStyles();
-  const { numSelected } = props;
+  const { numSelected, addNewHandler } = props;
 
   return (
     <Toolbar
@@ -49,7 +50,7 @@ const TableToolbar = (props) => {
         </Typography>
       ) : (
         <Typography className={classes.title} variant="h6" id="tableTitle" component="div">
-          Nutrition
+          {/* Nutrition */}
         </Typography>
       )}
 
@@ -61,9 +62,9 @@ const TableToolbar = (props) => {
         </Tooltip>
       ) : (
         <Tooltip title="Filter list">
-          <IconButton aria-label="filter list">
-            <FilterListIcon />
-          </IconButton>
+          <Button variant="outlined" color="primary" endIcon={<AddCircleIcon />} onClick={addNewHandler}>
+            Add&nbsp;New
+          </Button>
         </Tooltip>
       )}
     </Toolbar>

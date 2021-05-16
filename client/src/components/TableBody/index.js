@@ -40,8 +40,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function EnhancedTable(props) {
-  const { headCells, rows } = props
+function EnhancedTable(props) {
+  const { headCells, rows, addNewHandler } = props
   const classes = useStyles();
   const [order, setOrder] = React.useState('asc');
   const [orderBy, setOrderBy] = React.useState('name');
@@ -53,7 +53,6 @@ export default function EnhancedTable(props) {
     const isAsc = orderBy === property && order === 'asc';
     setOrder(isAsc ? 'desc' : 'asc');
     setOrderBy(property);
-    console.log(rows)
   };
 
   const handleSelectAllClick = (event) => {
@@ -99,7 +98,7 @@ export default function EnhancedTable(props) {
   return (
     <div className={classes.root}>
       <Paper className={classes.paper}>
-        <TableToolbar numSelected={selected.length} />
+        <TableToolbar numSelected={selected.length} addNewHandler={addNewHandler} />
         <TableContainer>
           <Table
             className={classes.table}
@@ -151,7 +150,7 @@ export default function EnhancedTable(props) {
                       </TableCell>
 
                       {tableCells.map((cell, index) => (
-                        <TableCell align="right">{cell}</TableCell>
+                        <TableCell key={index} align="right">{cell}</TableCell>
                       ))}
       
                     </TableRow>
@@ -173,3 +172,5 @@ export default function EnhancedTable(props) {
     </div>
   );
 }
+
+export default EnhancedTable;

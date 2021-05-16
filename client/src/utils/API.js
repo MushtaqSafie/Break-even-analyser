@@ -7,5 +7,8 @@ export default {
   },
   getProducts: function() {
     return axios.get("/api/table/productInfo")
+  },
+  createProduct: function(productData) {
+    return axios.post("/api/table/productInfo", productData);
   }
 };
