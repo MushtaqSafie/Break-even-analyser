@@ -1,8 +1,5 @@
 module.exports = (sequelize, DataTypes) => {
   const MaterialsCosts = sequelize.define("MaterialsCosts", {
-    product_SKU: {
-      type: DataTypes.STRING
-    },
     material_description: {
       type: DataTypes.STRING
     },
@@ -12,7 +9,9 @@ module.exports = (sequelize, DataTypes) => {
     cost_price: {
       type: DataTypes.DECIMAL(10, 2)
     },
-
+    product_SKU: {
+      type: DataTypes.STRING
+    },
   });
 
   return MaterialsCosts;
