@@ -14,5 +14,13 @@ module.exports = (sequelize, DataTypes) => {
     },
   });
 
+  MaterialsCosts.associate = models => {
+    MaterialsCosts.belongsTo(models.Products, {
+      foreignKey: {
+        allowNull: false
+      }
+    });
+  };
+
   return MaterialsCosts;
 };

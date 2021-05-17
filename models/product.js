@@ -20,5 +20,9 @@ module.exports = (sequelize, DataTypes) => {
     }
   });
 
+  Products.associate = models => {
+    Products.hasMany(models.MaterialsCosts, { onDelete: "CASCADE", hooks: true });
+  };
+
   return Products;
 };

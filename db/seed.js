@@ -17,6 +17,13 @@ const products = [
     unit_sales_price: 39.89,
     SKU: "KE_001",
     product_url: "/url"
+  },
+  {
+    product_description: "Kettle Model 2",
+    unit: "Each",
+    unit_sales_price: 39.89,
+    SKU: "KE_002",
+    product_url: "/url"
   }
 ]
 
@@ -34,8 +41,24 @@ const materialsCosts = [
     product_SKU: "KE_001",
     material_description: "Iron",
     quantity: 1,
-    cost_price: 3
-  }
+    cost_price: 3,
+    ProductId: 1
+  },
+  {
+    product_SKU: "KE_001",
+    material_description: "Iron",
+    quantity: 1,
+    cost_price: 4,
+    ProductId: 1
+  },
+  {
+    product_SKU: "KE_002",
+    material_description: "Iron",
+    quantity: 1,
+    cost_price: 4,
+    ProductId: 2
+  },
+
 ]
 
 users.forEach(currentItem => {
