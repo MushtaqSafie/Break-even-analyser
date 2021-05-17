@@ -55,6 +55,7 @@ const ProductInformation = () => {
   useEffect(() => {
     API.getProducts()
       .then(res => {
+        console.log(res);
         let data = []
         res.data.forEach(i => {
           let obj = {

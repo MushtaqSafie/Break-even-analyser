@@ -3,7 +3,7 @@ const db = require('../models');
 module.exports ={
   // get all items from ProductInfo 
   findAll: function (req, res) {
-    db.Products.findAll()
+    db.Products.findAll({ include: [db.MaterialsCosts] })
     .then(dbModel => res.json(dbModel))
     .catch(err => res.status(422).json(err));
   },
