@@ -15,7 +15,7 @@ import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
 import MoneyOffIcon from '@material-ui/icons/MoneyOff';
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
   root: {
     minWidth: 275,
   },
@@ -27,13 +27,17 @@ const useStyles = makeStyles({
   pos: {
     marginBottom: 12,
   },
-});
+  listTitle: {
+    backgroundColor: theme.palette.primary.main,
+    color: "#fff",
+  }
+}));
 
  function ProductCard(props) {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
   const { items } = props;
-  console.log(items.MaterialsCosts);
+  
 
   const handleClick = () => {
     setOpen(!open);
@@ -82,9 +86,22 @@ const useStyles = makeStyles({
 
         <Divider />
         <ListItem button>
-          <ListItemText primary="Total Material Costs:" /> $100
+          <ListItemText primary="Total Material Costs:" /> $ {items.costsTotal}
         </ListItem>
 
+        <br />
+        <Divider />
+        <ListItem className={classes.listTitle}>
+          <ListItemText primary="BREAK EVEN ANALYSIS" />
+        </ListItem>
+
+        <ListItem button>
+          <ListItemText primary="Contribution Margin (per unit):" /> $ {items.contributionMargin}
+        </ListItem>
+
+        <ListItem button>
+          <ListItemText primary="Sales Mix:" /> {items.salesMix}%
+        </ListItem>
 
       </List>
       <CardActions>

@@ -15,7 +15,6 @@ import MaterialDialog from "../components/DialogBox/MaterialCosts"
 
 const headCells = [
   { id: 'name', numeric: false, disablePadding: true, label: 'Material Description' },
-  { id: 'qty', numeric: true, disablePadding: false, label: 'Quantity' },
   { id: 'costPrice', numeric: true, disablePadding: false, label: 'Cost Price' },
   { id: 'SKU', numeric: true, disablePadding: false, label: 'SKU' },
 ];
@@ -59,7 +58,6 @@ const MaterialCosts = () => {
         res.data.forEach(i => {
           let obj = {
             name: i.material_description,
-            qty: i.quantity,
             costPrice: i.cost_price,
             SKU: i.product_SKU,
             id: i.id

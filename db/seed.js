@@ -40,21 +40,18 @@ const materialsCosts = [
   {
     product_SKU: "KE_001",
     material_description: "Iron",
-    quantity: 1,
     cost_price: 3,
     ProductId: 1
   },
   {
     product_SKU: "KE_001",
     material_description: "Iron",
-    quantity: 1,
     cost_price: 4,
     ProductId: 1
   },
   {
     product_SKU: "KE_002",
     material_description: "Iron",
-    quantity: 1,
     cost_price: 4,
     ProductId: 2
   },

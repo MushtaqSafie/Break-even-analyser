@@ -3,9 +3,6 @@ module.exports = (sequelize, DataTypes) => {
     material_description: {
       type: DataTypes.STRING
     },
-    quantity: {
-      type: DataTypes.INTEGER
-    },
     cost_price: {
       type: DataTypes.DECIMAL(10, 2)
     },

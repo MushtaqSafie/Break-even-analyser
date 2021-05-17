@@ -22,7 +22,6 @@ import InputAdornment from '@material-ui/core/InputAdornment';
 function MaterialDialog(props) {
   const { handleClose, open } = props;
   const itemRef = useRef();
-  const qtyRef = useRef();
   const priceRef = useRef();
   const SKURef = useRef();
 
@@ -31,7 +30,6 @@ function MaterialDialog(props) {
   const handleSubmit = () => {
     const newItem = {
       material_description: itemRef.current.value,
-      quantity: qtyRef.current.value,
       cost_price: priceRef.current.value,
       product_SKU: SKURef.current.value,
     }
@@ -41,7 +39,6 @@ function MaterialDialog(props) {
         let i = res.data
         let data = {
           name: i.material_description,
-          qty: i.quantity,
           costPrice: i.cost_price,
           SKU: i.product_SKU,
           id: i.id
@@ -69,14 +66,6 @@ function MaterialDialog(props) {
             label="Material Description"
             fullWidth
             inputRef={itemRef}
-          />
-          <TextField
-            margin="dense"
-            id="qty"
-            label="Quantity"
-            fullWidth
-            inputRef={qtyRef}
-            pb={3}
           />
           <TextField
             margin="dense"
