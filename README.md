@@ -1,29 +1,33 @@
 # Break-even-analyser
-Project 3
-
 
 ## Description
-Google Books Search app is React-based appliaction build with MongoDB, Express, React, and Node.js (MERN framework).
+Break-even point is determination of how much sell is require to cover costs or in other word (when is company makes a profit or loss). 
+The aim of this application is to monitor your break-even point to help set budgets, control costs, and decide a pricing strategy.
+As a manager or an accountant of a manufacturing company, I would like to determine the break-even point according to the company’s material costs, fixed costs, and the price of products. 
+So that I will be able to generate the report quickly and efficiently, in order to understand the company performance  and make better decision to improve profitability.
+The break-even point calculation is a useful tool to analyse critical profit drivers of your business including sales volume, average production costs and or average sales price.
+
 
 ### Deployed application
-> [Google Books Search](https://books-search-841.herokuapp.com/)
+> [Break even](https://breakeven-841.herokuapp.com/)
 
 ## Table of Contents
 - [Description](#Description)
 - [Technology Used](#Technology-Used)
-- [Mean Feactures](#Mean-Feactures)
 - [ScreenShot](#ScreenShot)
 - [Questions](#Questions)
 
 ## Technology Used
-* MongoDB
-* Express
+* Node js
+* Express js
+* Sequelize (MySQL)
+* Passport
+* JsonWebToken JWT
 * React
-* Node.js
-
-## Mean Feactures
-* Search for books via Google Books API.
-* Save, View, and Delete books from the Saved Books.
+* Axios
+* @Material-ui Framework
+* Heroku 
+* Git
 
 ## ScreenShot
 ![ScreenShot](https://raw.githubusercontent.com/MushtaqSafie/Break-even-analyser/main/media/6.JPG)
