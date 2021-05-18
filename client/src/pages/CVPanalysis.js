@@ -22,6 +22,11 @@ import Switch from '@material-ui/core/Switch';
 import Paper from '@material-ui/core/Paper';
 import Fade from '@material-ui/core/Fade';
 import TextField from '@material-ui/core/TextField';
+import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
+import IconButton from '@material-ui/core/IconButton';
+import CommentIcon from '@material-ui/icons/Comment';
+import Typography from '@material-ui/core/Typography';
+import Badge from '@material-ui/core/Badge';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -42,14 +47,35 @@ const useStyles = makeStyles((theme) => ({
     textAlign: 'center',
     color: theme.palette.text.secondary,
   },
+  shape: {
+    backgroundColor: "#7986cb",
+    color: "#fff",
+    borderRadius: 10,
+    height: 40,
+    padding: 5,
+    paddingLeft: 10,
+    paddingRight: 10
+  },
 }));
 
+const Rectangle =(props) => {
+  const classes = useStyles();
+  return (
+    <div className={classes.shape} >{props.text}</div>
+  )
+}
 
 const ProductInformation = () => {
   const classes = useStyles();
-  const [state, dispatch] = useStoreContext();
+
   const [products, setProducts] = useState([]);
-  const [fixedCosts, setFixedCosts] = useState([]);
+  const [fixedCosts, setFixedCosts] = useState(0);
+  const [weightedMargin, setWeightedMargin] = useState(0);
+  const [weightedBreakeven, setWeightedBreakeven] = useState(0);
+  const [totalMaterialCosts, setTotalMaterialCosts] = useState(0);
+  const [totalCosts, setTotalCosts] = useState(0);
+  const [totalRevenue, setTotalRevenue] = useState(0);
+  const [profit, setProfit] = useState(0);
 
   useEffect(() => {
     API.getProducts()
@@ -62,24 +88,82 @@ const ProductInformation = () => {
         item.costsTotal = SUM;
         item.contributionMargin = item.unit_sales_price - SUM;
         item.salesMix =  ( 100 / res.data.length ).toFixed(2);
+        item.soldQty =  ( 100 / res.data.length * 10 ).toFixed(0)  ;
+        item.length = res.data.length;
       });
-
       setProducts(res.data);
+      updateWeightedMargin();
      })
      .catch(err => console.log(err));
     API.getFixedCost()
      .then(res => {
-      //  console.log(res.data);
-       setFixedCosts(res.data)
+      let totalAmount = 0;
+      res.data.forEach(item => {
+        totalAmount += parseInt(item.Amount);
+      });
+      setFixedCosts(totalAmount)
      })
      .catch(err => console.log(err))
-  }, [])
+     setTotalCosts( parseInt(fixedCosts) + parseInt(totalMaterialCosts));
+     setProfit((totalRevenue - totalCosts).toFixed(0));
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [weightedMargin, weightedBreakeven, totalMaterialCosts])
 
-  const [checked, setChecked] = useState(false);
+  const [checked, setChecked] = useState(true);
 
   const handleChange = () => {
     setChecked((prev) => !prev);
   };
+
+  const handleQtyChanges = (id, value) => {
+    let newObj = [];
+    let soldQtySUM = 0;
+    products.forEach(item => {
+      if (item.id === id) {
+        item.soldQty = value
+      }
+      newObj.push(item);
+      soldQtySUM += parseInt(item.soldQty);
+    });
+    setProducts(newObj);
+    let newItem = []
+    products.forEach(item => {
+      let newPercent = ((item.soldQty / soldQtySUM) * 100).toFixed(2)
+      item.salesMix = newPercent;
+      newItem.push(item);
+    });
+    setProducts(newItem)
+    updateWeightedMargin();
+  }
+
+  const updateWeightedMargin = () => {
+    let weightedMargin = 0;
+    products.forEach(item => {
+      let num = (item.salesMix/100) * item.contributionMargin;
+      weightedMargin += num;
+    });
+    setWeightedMargin(weightedMargin);
+    let weightedBreak = Math.ceil( fixedCosts / weightedMargin );
+    setWeightedBreakeven(weightedBreak);
+    updateBreakEven();
+    
+  }
+
+  const updateBreakEven = () => {
+    let newArr = [];
+    let totalCost = 0;
+    let totalRevenue = 0;
+    products.forEach(item => {
+      item.breakEvenUnit = Math.ceil(weightedBreakeven * ( item.salesMix/100 ));
+      item.breakEvenDollor = item.breakEvenUnit * item.unit_sales_price;
+      totalCost += item.breakEvenUnit * item.costsTotal;
+      totalRevenue += item.breakEvenDollor;
+      newArr.push(item)
+    });
+    setProducts(newArr)
+    setTotalMaterialCosts(totalCost);
+    setTotalRevenue((totalRevenue).toFixed(2));
+  }
 
   return (
     <div className={classes.root}>
@@ -101,7 +185,7 @@ const ProductInformation = () => {
                     label="SALES MIX"
                   />
               </Grid>
-              
+
               {checked && <>
               <Grid container>
                   <Grid item xs={4}>
@@ -118,7 +202,7 @@ const ProductInformation = () => {
                   </Grid>
                 {products.map((item, index) => (
                   <Grid key={index} item xs={2}>
-                    <SalesMixCard items={item}/>
+                    <SalesMixCard items={item} handleChange={handleQtyChanges}/>
                   </Grid>
                 ))}
               </Grid>
@@ -133,6 +217,38 @@ const ProductInformation = () => {
                     </Grid>
                   ))}
               </Grid>
+
+              <br/><br/>
+              <Typography variant="h5" gutterBottom>
+                Break-even Point (in Total)
+              </Typography>
+                <Divider />
+                <br/>
+              <Typography variant="h6" gutterBottom>
+                Fixed Costs: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <Badge color="secondary"><Rectangle text={'$ ' + fixedCosts} /></Badge>
+              </Typography>
+              <Typography variant="h6" gutterBottom>
+                Material Costs: &nbsp;
+                <Badge color="secondary"><Rectangle text={"$" + totalMaterialCosts} /></Badge>
+              </Typography>
+                <Divider />
+                <br/>
+              <Typography variant="h6" gutterBottom>
+                Total Costs: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <Badge color="secondary"><Rectangle text={"$" + totalCosts} /></Badge>
+              </Typography>
+              <Typography variant="h6" gutterBottom>
+                Total Revenue: &nbsp;
+                <Badge color="secondary"><Rectangle text={"$" + totalRevenue} /></Badge>
+              </Typography>
+                <Divider />
+                <br/>
+              {/* <Typography variant="h6" gutterBottom>
+                Profit: &nbsp;
+                <Badge color="secondary"><Rectangle text={"$" + profit} /></Badge>
+              </Typography> */}
+
 
             </Grid>
           </Grid>

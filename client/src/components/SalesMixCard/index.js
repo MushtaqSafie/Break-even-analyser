@@ -34,15 +34,17 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SalesMixCard(props) {
   const classes = useStyles();
-  const { items } = props;
+  const { items, handleChange } = props;
 
-  const [name, setName] = React.useState('Cat in the Hat');
-  const handleChange = (event) => {
-    setName(event.target.value);
+  const [qty, setQty] = React.useState(0);
+  
+  const handleQtyChange = (e) => {
+    setQty(e.target.value);
+    handleChange(items.id, e.target.value);
   };
 
   useEffect(() => {
-    setName(items.salesMix)
+    setQty(items.soldQty);
   }, [])
 
   return (
@@ -51,10 +53,9 @@ export default function SalesMixCard(props) {
           <ListItemText primary={items.SKU} />
         </ListItem>
         <Divider />
-        <TextField variant="outlined" type="number" value={name} onChange={handleChange} autoFocus/>
+        <TextField variant="outlined" type="number" value={qty} onChange={handleQtyChange} autoFocus/>
         <Divider />
-        <TextField variant="outlined"  type="number" value={name} onChange={handleChange} autoFocus/>
+        <TextField variant="outlined" disabled type="number" value={items.salesMix} autoFocus/>
       </List>
-
   );
 }

@@ -103,6 +103,14 @@ const useStyles = makeStyles((theme) => ({
           <ListItemText primary="Sales Mix:" /> {items.salesMix}%
         </ListItem>
 
+        <ListItem button>
+          <ListItemText primary="Break-even in Units:" /> {items.breakEvenUnit}
+        </ListItem>
+
+        <ListItem button>
+          <ListItemText primary="Break-even in Dollar amount:" /> ${items.breakEvenDollor}
+        </ListItem>
+
       </List>
       <CardActions>
         <Button variant="outlined" size="small">Edit this Item</Button>
