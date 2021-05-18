@@ -1,14 +1,13 @@
 import React, { useState } from "react";
 import clsx from 'clsx';
-import { Drawer, AppBar, Toolbar, List, Typography, Divider, IconButton, Badge, ListItem, ListItemIcon, ListItemText, makeStyles } from '@material-ui/core';
-// Icons
-import NotificationsIcon from '@material-ui/icons/Notifications';
+import { Drawer, AppBar, Toolbar, List, Typography, Divider, IconButton, ListItem, ListItemIcon, ListItemText, makeStyles } from '@material-ui/core';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import MenuIcon from '@material-ui/icons/Menu';
 import DashboardIcon from '@material-ui/icons/Dashboard';
 import MoneyOffIcon from '@material-ui/icons/MoneyOff';
-// import PeopleIcon from '@material-ui/icons/People';
 import PollIcon from '@material-ui/icons/Poll';
+import Link from '@material-ui/core/Link';
+import { useStoreContext } from "../../utils/GlobalState";
 
 const drawerWidth = 280;
 
@@ -69,12 +68,16 @@ const useStyles = makeStyles((theme) => ({
   },
   signin: {
     textDecoration: "none",
+    color: "#fff",
+    backgroundColor: "#536dfe",
+    padding: 10,
+    borderRadius: 10
   },
 }));
 
 const NavBar = () => {
   const classes = useStyles();
-  
+  const [state, dispatch] = useStoreContext();
   const [open, setOpen] = useState(true);
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -82,7 +85,7 @@ const NavBar = () => {
   const handleDrawerClose = () => {
     setOpen(false);
   };
-  
+
   return (
     <>
     <AppBar position="absolute" className={clsx(classes.appBar, open && classes.appBarShift)}>
@@ -99,16 +102,26 @@ const NavBar = () => {
         <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
           Dashboard
         </Typography>
+        {!state.isAuthenticated ? <>
         <IconButton color="inherit">
-          <Badge badgeContent={5} color="secondary">
-            <NotificationsIcon />
-          </Badge>
-        </IconButton>
-        <IconButton color="inherit">
-          <Typography component="a" variant="h6" href="/signin" className={classes.signin} >
+          <Link  variant="body2" href="/signin" className={classes.signin} >
             Sign In
+          </Link>
+        </IconButton> </> :
+        <>
+        <div color="inherit">
+          <Typography  variant="body1">
+            {state.user.first_name}
           </Typography>
-        </IconButton>     
+        </div>
+          
+        <IconButton color="inherit">
+          <Link  variant="body2" href="/signin" className={classes.signin} >
+            Log Out
+          </Link>
+        </IconButton> 
+        </>}
+  
       </Toolbar>
     </AppBar>
 
@@ -140,7 +153,7 @@ const NavBar = () => {
             <ListItemIcon>
               <MoneyOffIcon />
             </ListItemIcon>
-            <ListItemText primary="Bills of Material & DL" />
+            <ListItemText primary="Bills of Material" />
           </ListItem>
           <ListItem button component="a" href="/CVPanalysis">
             <ListItemIcon>
@@ -150,7 +163,6 @@ const NavBar = () => {
           </ListItem>
         </List>
       <Divider />
-
     </Drawer>
     </>
   )

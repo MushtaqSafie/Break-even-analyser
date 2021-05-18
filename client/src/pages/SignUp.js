@@ -1,13 +1,10 @@
 import React, { useRef, useState } from 'react';
 import { Button, CssBaseline, TextField, FormControlLabel, Checkbox, Link, Grid, Box, Typography, Container } from '@material-ui/core';
-
 import { Alert, AlertTitle } from '@material-ui/lab';
-
 import { makeStyles } from '@material-ui/core/styles';
 import logo from "../logo.png";
 import GithubLink from "../components/GithubLink"
 import { Redirect } from 'react-router'
-
 import API from "../utils/API";
 import { useStoreContext } from "../utils/GlobalState";
 import { USER_REGISTER } from "../utils/actions";
@@ -46,7 +43,6 @@ const SignUp = () => {
   const lastNameRef = useRef();
   const emailRef = useRef();
   const passwordRef = useRef();
-  
   const [state, dispatch] = useStoreContext();
   const [error, setError] = useState("");
   const [redirect, setRedirect] = useState(false);
@@ -63,14 +59,12 @@ const SignUp = () => {
     const lastName = lastNameRef.current.value;
     const emailAddress = emailRef.current.value;
     const password = passwordRef.current.value;
-
     const userData = {
       first_name: firstName,
       last_name: lastName,
       email_address: emailAddress,
       user_password: password
     };
-
     if (firstName && lastName && emailAddress && password) {
       API.registerUser(userData)
       .then(res => {
@@ -82,9 +76,9 @@ const SignUp = () => {
           })
           setRedirect(true);
         };
-      });
+      })
+      .catch(err => console.log(err));
     }
-    // handle submit form
   }
 
   return (
@@ -146,12 +140,6 @@ const SignUp = () => {
                 id="password"
                 autoComplete="current-password"
                 inputRef={passwordRef}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <FormControlLabel
-                control={<Checkbox value="allowExtraEmails" color="primary" />}
-                label="I want to receive inspiration, marketing promotions and updates via email."
               />
             </Grid>
           </Grid>

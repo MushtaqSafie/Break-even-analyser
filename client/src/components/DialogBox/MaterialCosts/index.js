@@ -1,5 +1,4 @@
 import React, { useRef } from 'react';
-
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
@@ -7,13 +6,9 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
-
-
 import { useStoreContext } from "../../../utils/GlobalState";
 import { ADD_MATERIALCOST } from "../../../utils/actions";
 import API from "../../../utils/API"
-
-
 import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
 import Input from '@material-ui/core/Input';
@@ -24,7 +19,6 @@ function MaterialDialog(props) {
   const itemRef = useRef();
   const priceRef = useRef();
   const SKURef = useRef();
-
   const [state, dispatch] = useStoreContext();
 
   const handleSubmit = () => {
@@ -33,15 +27,22 @@ function MaterialDialog(props) {
       cost_price: priceRef.current.value,
       product_SKU: SKURef.current.value,
     }
-    API.newMaterialCost(newItem)
+    API.getProducts()
+    .then(res => {
+      res.data.forEach(item => {
+        // eslint-disable-next-line eqeqeq
+        if (item.SKU == SKURef.current.value) {
+          newItem.ProductId = item.id;
+        }
+      });
+      API.newMaterialCost(newItem)
       .then(res => {
-        console.log(res.data);
         let i = res.data
         let data = {
+          id: i.id,
           name: i.material_description,
           costPrice: i.cost_price,
           SKU: i.product_SKU,
-          id: i.id
         }
         dispatch({ 
           type: ADD_MATERIALCOST,
@@ -49,6 +50,8 @@ function MaterialDialog(props) {
         })
       })
       .catch(err => console.log(err));
+    })
+    .catch(err => console.log(err));
     handleClose();
   }
   return (

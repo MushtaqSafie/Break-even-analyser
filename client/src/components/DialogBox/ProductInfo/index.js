@@ -1,5 +1,4 @@
 import React, { useRef } from 'react';
-
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
@@ -7,13 +6,9 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
-
-
 import { useStoreContext } from "../../../utils/GlobalState";
 import { ADD_PRODUCTS } from "../../../utils/actions";
 import API from "../../../utils/API"
-
-
 import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
 import Input from '@material-ui/core/Input';
@@ -39,11 +34,11 @@ function ProductDialog(props) {
       .then(res => {
         let i = res.data
         let data = {
+          id: i.id,
           name: i.product_description,
           unit: i.unit,
           salesPrice: i.unit_sales_price,
           SKU: i.SKU,
-          id: i.id
         }
         dispatch({ 
           type: ADD_PRODUCTS,
@@ -84,7 +79,6 @@ function ProductDialog(props) {
             fullWidth
             inputRef={SKURef}
           />
-
           <FormControl fullWidth >
             <InputLabel htmlFor="standard-adornment-amount">Unit Sales Price</InputLabel>
             <Input
@@ -94,7 +88,6 @@ function ProductDialog(props) {
               startAdornment={<InputAdornment position="start">$</InputAdornment>}
             />
           </FormControl>
-
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose} color="primary">

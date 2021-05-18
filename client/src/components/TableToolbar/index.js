@@ -1,17 +1,14 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import clsx from 'clsx';
 import { 
   lighten,
   makeStyles,
   Toolbar,
   Typography,
-  IconButton,
   Tooltip ,
   Button
 } from '@material-ui/core';
 
-import DeleteIcon from '@material-ui/icons/Delete';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 
 const useToolbarStyles = makeStyles((theme) => ({
@@ -44,35 +41,17 @@ const TableToolbar = (props) => {
         [classes.highlight]: numSelected > 0,
       })}
     >
-      {numSelected > 0 ? (
-        <Typography className={classes.title} color="inherit" variant="subtitle1" component="div">
-          {numSelected} selected
-        </Typography>
-      ) : (
         <Typography className={classes.title} variant="h6" id="tableTitle" component="div">
           {/* Nutrition */}
         </Typography>
-      )}
-
-      {numSelected > 0 ? (
-        <Tooltip title="Delete">
-          <IconButton aria-label="delete">
-            <DeleteIcon />
-          </IconButton>
-        </Tooltip>
-      ) : (
         <Tooltip title="Filter list">
           <Button variant="outlined" color="primary" endIcon={<AddCircleIcon />} onClick={addNewHandler}>
             Add&nbsp;New
           </Button>
         </Tooltip>
-      )}
     </Toolbar>
   );
 };
 
-TableToolbar.propTypes = {
-  numSelected: PropTypes.number.isRequired,
-};
 
 export default TableToolbar

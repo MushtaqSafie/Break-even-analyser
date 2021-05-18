@@ -1,23 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import { CssBaseline, Box, Container, Grid, makeStyles } from '@material-ui/core';
-
 import GithubLink from "../components/GithubLink"
 import NavBar from "../components/NavBar"
-
 import TableBody from '../components/TableBody';
 import TypographyTitle from "../components/TypographyTitle";
-
 import FixedCostsDialog from "../components/DialogBox/FixedCosts"
-
 import { useStoreContext } from "../utils/GlobalState";
-import { GET_FIXEDCOST, ADD_FIXEDCOST } from "../utils/actions";
+import { GET_FIXEDCOST } from "../utils/actions";
 import API from "../utils/API"
 
 const headCells = [
+  { id: 'id', numeric: false, disablePadding: true, label: 'Id' },
   { id: 'name', numeric: false, disablePadding: true, label: 'Fixed Cost Item' },
-  { id: 'date', numeric: true, disablePadding: false, label: 'Date' },
-  { id: 'description', numeric: true, disablePadding: false, label: 'Description' },
-  { id: 'amount', numeric: true, disablePadding: false, label: 'Amount $' },
+  { id: 'date', numeric: false, disablePadding: false, label: 'Date' },
+  { id: 'description', numeric: false, disablePadding: false, label: 'Description' },
+  { id: 'amount', numeric: false, disablePadding: false, label: 'Amount $' },
 ];
 
 const useStyles = makeStyles((theme) => ({
@@ -57,11 +54,11 @@ const ProductInformation = () => {
         let data = []
         res.data.forEach(i => {
           let obj = {
+            id: i.id,
             name: i.fixed_cost_item,
             date: i.date,
             description: i.description,
             amount: i.Amount,
-            id: i.id
           }
           data.push(obj);
         });
@@ -77,7 +74,7 @@ const ProductInformation = () => {
     <div className={classes.root}>
       <CssBaseline />
       <NavBar/>
-      
+  
       <main className={classes.content}>
         <div className={classes.appBarSpacer} />
         <Container maxWidth="lg" className={classes.container}>
@@ -85,6 +82,7 @@ const ProductInformation = () => {
             <Grid item xs={12}>
               <TypographyTitle 
                 title={"Fixed Costs"} 
+                subtitle={"Fixed costs of  current period"}
               />
               <TableBody headCells={headCells} rows={state.fixedCosts} addNewHandler={addNewHandler} />
             </Grid>

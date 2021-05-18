@@ -1,24 +1,20 @@
 import React, { useEffect } from 'react';
 import { CssBaseline, Box, Container, Grid, makeStyles } from '@material-ui/core';
-
 import GithubLink from "../components/GithubLink"
 import NavBar from "../components/NavBar"
-
 import TableBody from '../components/TableBody';
 import TypographyTitle from "../components/TypographyTitle";
-
 import { useStoreContext } from "../utils/GlobalState";
 import { GET_MATERIALCOST } from "../utils/actions";
 import API from "../utils/API"
-
 import MaterialDialog from "../components/DialogBox/MaterialCosts"
 
 const headCells = [
+  { id: 'id', numeric: false, disablePadding: true, label: 'Id' },
   { id: 'name', numeric: false, disablePadding: true, label: 'Material Description' },
-  { id: 'costPrice', numeric: true, disablePadding: false, label: 'Cost Price' },
-  { id: 'SKU', numeric: true, disablePadding: false, label: 'SKU' },
+  { id: 'costPrice', numeric: false, disablePadding: false, label: 'Cost Price' },
+  { id: 'SKU', numeric: false, disablePadding: false, label: 'SKU' },
 ];
-
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -39,7 +35,6 @@ const useStyles = makeStyles((theme) => ({
 
 const MaterialCosts = () => {
   const classes = useStyles();
-  
   const [state, dispatch] = useStoreContext();
   const [open, setOpen] = React.useState(false);
 
@@ -57,10 +52,10 @@ const MaterialCosts = () => {
         let data = []
         res.data.forEach(i => {
           let obj = {
+            id: i.id,
             name: i.material_description,
             costPrice: i.cost_price,
             SKU: i.product_SKU,
-            id: i.id
           }
           data.push(obj);
         });
@@ -83,7 +78,8 @@ const MaterialCosts = () => {
           <Grid container spacing={3}>
             <Grid item xs={12}>
               <TypographyTitle 
-                title={"Bill of Materials"} 
+                title={"Bill of Materials"}
+                subtitle={"Materials costs"} 
               />
               <TableBody headCells={headCells} rows={state.materialCosts}  addNewHandler={addNewHandler}/>
             </Grid>

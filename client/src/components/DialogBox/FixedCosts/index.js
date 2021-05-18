@@ -1,5 +1,4 @@
 import React, { useRef } from 'react';
-
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
@@ -7,13 +6,9 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
-
-
 import { useStoreContext } from "../../../utils/GlobalState";
 import { ADD_FIXEDCOST } from "../../../utils/actions";
 import API from "../../../utils/API"
-
-
 import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
 import Input from '@material-ui/core/Input';
@@ -25,7 +20,6 @@ function FixedCostsDialog(props) {
   const dateRef = useRef();
   const descriptionRef = useRef();
   const amountRef = useRef();
-
   const [state, dispatch] = useStoreContext();
 
   const handleSubmit = () => {
@@ -35,16 +29,15 @@ function FixedCostsDialog(props) {
       description: descriptionRef.current.value,
       Amount: amountRef.current.value
     }
-    // console.log(newfixedCost);
     API.newFixedCost(newfixedCost)
       .then(res => {
         let i = res.data
         let data = {
+          id: i.id,
           name: i.fixed_cost_item,
           date: i.date,
           description: i.description,
           amount: i.Amount,
-          id: i.id
         }
         dispatch({ 
           type: ADD_FIXEDCOST,
@@ -62,7 +55,6 @@ function FixedCostsDialog(props) {
           <DialogContentText>
             To add new product, please enter the following information.
           </DialogContentText>
-
           <TextField
             margin="dense"
             label="Date"
@@ -93,7 +85,6 @@ function FixedCostsDialog(props) {
               startAdornment={<InputAdornment position="start">$</InputAdornment>}
             />
           </FormControl>
-
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose} color="primary">

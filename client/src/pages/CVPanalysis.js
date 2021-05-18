@@ -1,30 +1,18 @@
 import React, { useEffect, useState } from 'react';
-import { CssBaseline, Box, Container, Grid, makeStyles, ListItemIcon } from '@material-ui/core';
-
+import { CssBaseline, Box, Container, Grid, makeStyles } from '@material-ui/core';
 import GithubLink from "../components/GithubLink"
 import NavBar from "../components/NavBar"
-
 import TypographyTitle from "../components/TypographyTitle";
-
-import { useStoreContext } from "../utils/GlobalState";
-// import { GET_PRODUCTS } from "../utils/actions";
 import API from "../utils/API"
 import ProductCard from "../components/Card"
 import SalesMixCard from "../components/SalesMixCard"
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import List from '@material-ui/core/List';
-import Card from '@material-ui/core/Card';
 import Divider from '@material-ui/core/Divider';
-
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
-import Paper from '@material-ui/core/Paper';
-import Fade from '@material-ui/core/Fade';
 import TextField from '@material-ui/core/TextField';
-import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
-import IconButton from '@material-ui/core/IconButton';
-import CommentIcon from '@material-ui/icons/Comment';
 import Typography from '@material-ui/core/Typography';
 import Badge from '@material-ui/core/Badge';
 
@@ -67,7 +55,6 @@ const Rectangle =(props) => {
 
 const ProductInformation = () => {
   const classes = useStyles();
-
   const [products, setProducts] = useState([]);
   const [fixedCosts, setFixedCosts] = useState(0);
   const [weightedMargin, setWeightedMargin] = useState(0);
@@ -88,7 +75,7 @@ const ProductInformation = () => {
         item.costsTotal = SUM;
         item.contributionMargin = item.unit_sales_price - SUM;
         item.salesMix =  ( 100 / res.data.length ).toFixed(2);
-        item.soldQty =  ( 100 / res.data.length * 10 ).toFixed(0)  ;
+        item.soldQty =  ( 100 / res.data.length * 10 ).toFixed(0);
         item.length = res.data.length;
       });
       setProducts(res.data);
@@ -109,7 +96,7 @@ const ProductInformation = () => {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [weightedMargin, weightedBreakeven, totalMaterialCosts])
 
-  const [checked, setChecked] = useState(true);
+  const [checked, setChecked] = useState(false);
 
   const handleChange = () => {
     setChecked((prev) => !prev);
@@ -155,7 +142,7 @@ const ProductInformation = () => {
     let totalRevenue = 0;
     products.forEach(item => {
       item.breakEvenUnit = Math.ceil(weightedBreakeven * ( item.salesMix/100 ));
-      item.breakEvenDollor = item.breakEvenUnit * item.unit_sales_price;
+      item.breakEvenDollor = (item.breakEvenUnit * item.unit_sales_price).toFixed(2);
       totalCost += item.breakEvenUnit * item.costsTotal;
       totalRevenue += item.breakEvenDollor;
       newArr.push(item)
@@ -178,14 +165,12 @@ const ProductInformation = () => {
               <TypographyTitle 
                 title={"CVP Analysis"} 
               />
-
               <Grid container>
                 <FormControlLabel
                     control={<Switch checked={checked} onChange={handleChange} />}
                     label="SALES MIX"
                   />
               </Grid>
-
               {checked && <>
               <Grid container>
                   <Grid item xs={4}>
@@ -198,7 +183,6 @@ const ProductInformation = () => {
                         <Divider />
                         <TextField disabled  variant="filled" label="Sales Mix %" type="number" fullWidth />
                       </List>
-     
                   </Grid>
                 {products.map((item, index) => (
                   <Grid key={index} item xs={2}>
@@ -207,9 +191,7 @@ const ProductInformation = () => {
                 ))}
               </Grid>
               </>}
-
               <br/><br/>
-
               <Grid container spacing={3}>
                   {products.map((item, index) => (
                     <Grid key={index} item xs={4}>
@@ -217,7 +199,6 @@ const ProductInformation = () => {
                     </Grid>
                   ))}
               </Grid>
-
               <br/><br/>
               <Typography variant="h5" gutterBottom>
                 Break-even Point (in Total)
@@ -244,12 +225,6 @@ const ProductInformation = () => {
               </Typography>
                 <Divider />
                 <br/>
-              {/* <Typography variant="h6" gutterBottom>
-                Profit: &nbsp;
-                <Badge color="secondary"><Rectangle text={"$" + profit} /></Badge>
-              </Typography> */}
-
-
             </Grid>
           </Grid>
           <Box pt={4}>

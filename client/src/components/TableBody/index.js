@@ -7,12 +7,9 @@ import {
   TableContainer,
   TablePagination,
   TableRow,
-  Paper,
-  Checkbox
+  Paper
 } from '@material-ui/core';
-
 import { getComparator, stableSort } from "../../tables/tableSort"
-
 import TableToolbar from "../TableToolbar";
 import TableHeader from "../TableHead"
 
@@ -45,7 +42,6 @@ function EnhancedTable(props) {
   const classes = useStyles();
   const [order, setOrder] = React.useState('asc');
   const [orderBy, setOrderBy] = React.useState('name');
-  const [selected, setSelected] = React.useState([]);
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
@@ -53,35 +49,6 @@ function EnhancedTable(props) {
     const isAsc = orderBy === property && order === 'asc';
     setOrder(isAsc ? 'desc' : 'asc');
     setOrderBy(property);
-  };
-
-  const handleSelectAllClick = (event) => {
-    if (event.target.checked) {
-      const newSelecteds = rows.map((n) => n.name);
-      setSelected(newSelecteds);
-      return;
-    }
-    setSelected([]);
-  };
-
-  const handleClick = (event, name) => {
-    const selectedIndex = selected.indexOf(name);
-    let newSelected = [];
-
-    if (selectedIndex === -1) {
-      newSelected = newSelected.concat(selected, name);
-    } else if (selectedIndex === 0) {
-      newSelected = newSelected.concat(selected.slice(1));
-    } else if (selectedIndex === selected.length - 1) {
-      newSelected = newSelected.concat(selected.slice(0, -1));
-    } else if (selectedIndex > 0) {
-      newSelected = newSelected.concat(
-        selected.slice(0, selectedIndex),
-        selected.slice(selectedIndex + 1),
-      );
-    }
-
-    setSelected(newSelected);
   };
 
   const handleChangePage = (event, newPage) => {
@@ -93,12 +60,10 @@ function EnhancedTable(props) {
     setPage(0);
   };
 
-  const isSelected = (name) => selected.indexOf(name) !== -1;
-
   return (
     <div className={classes.root}>
       <Paper className={classes.paper}>
-        <TableToolbar numSelected={selected.length} addNewHandler={addNewHandler} />
+        <TableToolbar addNewHandler={addNewHandler} />
         <TableContainer>
           <Table
             className={classes.table}
@@ -108,10 +73,8 @@ function EnhancedTable(props) {
           >
             <TableHeader
               classes={classes}
-              numSelected={selected.length}
               order={order}
               orderBy={orderBy}
-              onSelectAllClick={handleSelectAllClick}
               onRequestSort={handleRequestSort}
               rowCount={rows.length}
               headCells={headCells}
@@ -121,38 +84,16 @@ function EnhancedTable(props) {
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((row, index) => {
                   const tableCells = [];
-                  for(const index in row) {
-                    if (index !== "name" && index !== "id") {
-                      tableCells.push(row[index])
-                    }
-                  }
-                  const isItemSelected = isSelected(row.name);
-                  const labelId = `enhanced-table-checkbox-${index}`;
-
+                  for(const index in row) {tableCells.push(row[index])}
                   return (
                     <TableRow
                       hover
-                      onClick={(event) => handleClick(event, row.name)}
-                      role="checkbox"
-                      aria-checked={isItemSelected}
                       tabIndex={-1}
-                      key={row.name}
-                      selected={isItemSelected}
+                      key={row.id}
                     >
-                      <TableCell padding="checkbox">
-                        <Checkbox
-                          checked={isItemSelected}
-                          inputProps={{ 'aria-labelledby': labelId }}
-                        />
-                      </TableCell>
-                      <TableCell component="th" id={labelId} scope="row" padding="none">
-                        {row.name}
-                      </TableCell>
-
-                      {tableCells.map((cell, index) => (
-                        <TableCell key={index} align="right">{cell}</TableCell>
-                      ))}
-      
+                    {tableCells.map((cell, index) => (
+                      <TableCell key={index} >{cell}</TableCell>
+                    ))}
                     </TableRow>
                   );
                 })}

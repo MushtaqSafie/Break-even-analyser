@@ -1,6 +1,5 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import Card from '@material-ui/core/Card';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -29,7 +28,6 @@ const useStyles = makeStyles((theme) => ({
   listItem: {
     height: "40px"
   },
-
 }));
 
 export default function SalesMixCard(props) {
@@ -48,14 +46,14 @@ export default function SalesMixCard(props) {
   }, [])
 
   return (
-      <List component="nav">
-        <ListItem className={classes.listTitle}>
-          <ListItemText primary={items.SKU} />
-        </ListItem>
-        <Divider />
-        <TextField variant="outlined" type="number" value={qty} onChange={handleQtyChange} autoFocus/>
-        <Divider />
-        <TextField variant="outlined" disabled type="number" value={items.salesMix} autoFocus/>
-      </List>
+    <List component="nav">
+      <ListItem className={classes.listTitle}>
+        <ListItemText primary={items.SKU} />
+      </ListItem>
+      <Divider />
+      <TextField variant="outlined" type="number" value={qty} onChange={handleQtyChange} autoFocus/>
+      <Divider />
+      <TextField variant="outlined" disabled type="number" value={items.salesMix} autoFocus/>
+    </List>
   );
 }
