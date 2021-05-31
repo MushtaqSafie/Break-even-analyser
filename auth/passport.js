@@ -9,7 +9,7 @@ const db = require('../models');
 passport.use(
   new StrategyJwt({
     jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-    secretOrKey: "@sdJ#kKlj297230@#32",
+    secretOrKey: process.env.JWT_SECRET_KEY,
   }, (jwtPayload, done) => {
     db.User.findOne({ where : { id: jwtPayload.id } }).then((dbModel) => {
       if (dbModel) {

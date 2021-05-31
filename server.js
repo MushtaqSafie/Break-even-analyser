@@ -1,6 +1,8 @@
 const express = require("express");
 const path = require("path");
 const bodyParser = require('body-parser');
+
+require('dotenv').config()
 require("./auth/passport")
 // const mysql2 = require("mysql2");
 // Requiring our models for syncing
